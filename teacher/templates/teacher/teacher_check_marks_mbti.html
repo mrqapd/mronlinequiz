@@ -1,0 +1,74 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+<br><br>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">View Marks</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+
+          <th>Exam Name</th>
+          <th>E</th>
+          <th>I</th>
+          <th>S</th>
+          <th>N</th>
+          <th>T</th>
+          <th>F</th>
+          <th>J</th>
+          <th>P</th>
+          <th>Attempt Number</th>
+          <th>Exam Date</th>
+        </tr>
+      </thead>
+      {% for t in mresults %}
+      <tr>
+
+
+        <td> {{t.exam}}</td>
+        {% comment %} <td> {{t.marks}}</td> {% endcomment %}
+        <td>{{ t.category_E }}</td>
+        <td>{{ t.category_I }}</td>
+        <td>{{ t.category_S }}</td>
+        <td>{{ t.category_N }}</td>
+        <td>{{ t.category_T }}</td>
+        <td>{{ t.category_F }}</td>
+        <td>{{ t.category_J }}</td>
+        <td>{{ t.category_P }}</td>
+        <td>Attemp {{ forloop.counter }}</td>
+        <td> {{t.date}}</td>
+        
+        
+        
+        
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

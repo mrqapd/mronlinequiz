@@ -1,0 +1,101 @@
+{% block content %}
+{% load static %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<div class="jumbotron my-4">
+
+  {% csrf_token %}
+  <form class="form" autocomplete="off" onsubmit="return saveAns()" action="/student/calculate-marks" method="POST">
+    <h1 style="text-align: center; font-size: 2em;">{{ course.course_name }}</h1>
+    {% for q in questions %}
+    <h3 class="text-info" style="font-size: 1.5em;">{{ forloop.counter }}. {{ q.question }}</h3>
+    <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
+    
+    {% if q.option1 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option1 }}" value="Option1" style="transform: scale(2);">
+        <label class="form-check-label" for="option1" style="font-size: 1.3em; margin-left: 10px;">{{ q.option1 }}</label>
+      </div>
+    {% endif %}
+
+    {% if q.option2 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option2 }}" value="Option2" style="transform: scale(2);">
+        <label class="form-check-label" for="option2" style="font-size: 1.3em; margin-left: 10px;">{{ q.option2 }}</label>
+      </div>
+    {% endif %}
+
+    {% if q.option3 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option3 }}" value="Option3" style="transform: scale(2);">
+        <label class="form-check-label" for="option3" style="font-size: 1.3em; margin-left: 10px;">{{ q.option3 }}</label>
+      </div>
+    {% endif %}
+
+    {% if q.option4 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option4 }}" value="Option4" style="transform: scale(2);">
+        <label class="form-check-label" for="option4" style="font-size: 1.3em; margin-left: 10px;">{{ q.option4 }}</label>
+      </div>
+    {% endif %}
+
+    {% if q.option5 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option5 }}" value="Option5" style="transform: scale(2);">
+        <label class="form-check-label" for="option5" style="font-size: 1.3em; margin-left: 10px;">{{ q.option5 }}</label>
+      </div>
+    {% endif %}
+
+    {% if q.option6 %}
+      <div class="form-check mx-4">
+        <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option6 }}" value="Option6" style="transform: scale(2);">
+        <label class="form-check-label" for="option6" style="font-size: 1.3em; margin-left: 10px;">{{ q.option6 }}</label>
+      </div>
+    {% endif %}
+
+    {% endfor %}
+    <input class="btn btn-info btn-lg" type="submit" value="Submit" style="font-size: 1.5em;">  
+  </form>
+</div>
+
+<script> 
+  function saveAns() {  
+    var ele = document.getElementsByTagName('input'); 
+    for (i = 0; i < ele.length; i++) { 
+        if (ele[i].type == "radio" && ele[i].checked) {        
+            setCookie(ele[i].name, ele[i].value, 3)
+        }
+    }
+
+    // Check if any radio button is selected for each question
+    for (var j = 1; j <= {{ questions|length }}; j++) {
+        var radios = document.getElementsByName(j);
+        var checked = false;
+        for (var k = 0; k < radios.length; k++) {
+            if (radios[k].type === 'radio' && radios[k].checked) {
+                checked = true;
+                break;
+            }
+        }
+        if (!checked) {
+            alert('Please answer question ' + j + ' before submitting.');
+            return false;
+        }
+    }
+    return true;
+}
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script> 
+
+<br><br><br><br><br><br>
+{% endblock content %}

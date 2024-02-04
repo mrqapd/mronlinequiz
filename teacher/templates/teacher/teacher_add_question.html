@@ -1,0 +1,60 @@
+{% extends 'teacher/teacherbase.html' %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  a:link {
+        text-decoration: none;
+      }
+    
+  </style>
+</head>
+<h2 style="text-align:center; color:blue;">ADD QUESTION</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="question">Course</label>
+      {{ questionForm.courseID }}
+        <br>
+      {% comment %} <label for = "question">Category</label>
+      {{ questionForm.categoryID}} {% endcomment %}
+
+      <label for="question">Question</label>
+      {{ questionForm.question }}
+        <br>
+      <label for="question_number">Marks</label>
+      {{ questionForm.marks }}
+        <br>
+      <label for="option1">Option 1</label>
+      {{ questionForm.option1 }}
+        <br>
+      <label for="option2">Option 2</label>
+      {{ questionForm.option2 }}
+        <br>
+      <label for="option3">Option 3</label>
+      {{ questionForm.option3 }}
+        <br>
+      <label for="option4">Option 4</label>
+      {{ questionForm.option4}}
+      <label for="option5">Option 5</label>
+      {{ questionForm.option5}}
+      <label for="option6">Option 6</label>
+      {{ questionForm.option6}}
+        <br>
+      <label for="answer">Answer</label>
+      {{ questionForm.answer }}
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">ADD</button>
+  </form>
+<br><br><br>
+{% endblock content %}
