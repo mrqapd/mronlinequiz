@@ -4,7 +4,6 @@
 
 <head>
   <meta charset="utf-8">
- 
 
   <style media="screen">
     a:link {
@@ -49,156 +48,66 @@
       font-weight: 600;
       color: #fff;
       transition: 0.5s;
-
     }
 
     .logout_btn:hover {
       background: #0B87A6;
     }
 
-    .sidebar {
-      background: #2f323a;
+    .navbar-content {
       margin-top: 70px;
-      padding-top: 30px;
-      position: fixed;
-      left: 0;
-      width: 250px;
-      height: 100%;
+      padding: 30px;
       transition: 0.5s;
-      transition-property: left;
-    }
-
-    .sidebar .profile_image {
-      width: 100px;
-      height: 100px;
-      border-radius: 100px;
-      margin-bottom: 10px;
-    }
-
-    .sidebar h4 {
-      color: #ccc;
-      margin-top: 0;
-      
-    }
-
-    .sidebar a {
-      color: #fff;
-      display: block;
-      width: 100%;
-      line-height: 60px;
-      text-decoration: none;
-      padding-left: 40px;
-      box-sizing: border-box;
-      transition: 0.5s;
-
-    }
-
-    .sidebar a:hover {
-      background: #19B3D3;
-    }
-
-    .sidebar i {
-      padding-right: 10px;
-    }
-
-    label #sidebar_btn {
-      z-index: 1;
-      color: #fff;
-      position: fixed;
-      cursor: pointer;
-      left: 300px;
-      font-size: 20px;
-      margin: 5px 0;
-      transition: 0.5s;
-      transition-property: color;
-    }
-
-    label #sidebar_btn:hover {
-      color: #19B3D3;
-    }
-
-    #check:checked~.sidebar {
-      left: -190px;
-    }
-
-    #check:checked~.sidebar a span {
-      display: none;
-    }
-
-    #check:checked~.sidebar a {
-      font-size: 20px;
-      margin-left: 170px;
-      width: 80px;
     }
 
     .content {
-      margin-left: 250px;
       background: url(background.png) no-repeat;
       background-position: center;
       background-size: cover;
       height: 100vh;
       transition: 0.5s;
     }
-
-    #check:checked~.content {
-      margin-left: 60px;
-    }
-
-    #check {
-      display: none;
-    }
   </style>
-
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-
-
 </head>
 
 <body>
-
-  <input type="checkbox" id="check">
-  <!--header area start-->
-  <header>
-    <label for="check">
-      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
-    </label>
-    <div class="left_area">
-      <h3>Online Quiz</h3>
-    </div>
-    <div class="right_area">
-      <a href="/logout" class="logout_btn">Logout</a>
-    </div>
-  </header>
-  <!--header area end-->
-  <!--sidebar start-->
-  <div class="sidebar">
-    <center>
-
-      <img src="{% static "image/teacher.png" %}" class="profile_image" alt="">
-      <h4>{{request.user.first_name}}</h4>
-      <h6 style="color: rgb(255, 255, 255);">( Teacher )</h6>
-
-    </center>
-
-    <a href="/teacher/teacher-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-    <a href="/teacher/teacher-student"><i class="fas fa-user-graduate"></i><span>Student</span></a>
-   </div>
-  <!--sidebar end-->
-
-
-  <!--content start-->
-  <div class="content">
-    <br><br><br><br><br>
-    {% block content %}
-
-    {% endblock content %}
-
-
-    <br><br><br>
-    {% include "quiz/footer.html" %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-3" href="#">{{request.user.first_name}}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse mx -3" id="navbarNav">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link mx - 3" href="/teacher/teacher-dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link mx - 3 " href="/teacher/teacher-student">Student</a>
+              </li>
+              <li class="nav-item">
+                <a class = "btn btn-info" class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+      </div>
   </div>
-  <!--content end-->
-</body>
+</nav>
 
+
+
+
+  {% block content %}
+
+  {% endblock content %}
+
+  <br><br><br>
+  {% include "quiz/footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
 </html>
+
+
+
