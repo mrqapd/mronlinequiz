@@ -10,9 +10,11 @@ from quiz import models as QMODEL
 from teacher import models as TMODEL
 from mbti import models as MModel
 from tatest import models as TModel
+from test2 import models as Model2
 from mbti.models import MQuestion as MBTIMQuestion
 from tatest.models import TQuestion as TAQuestion
 from django.contrib.auth import logout
+from test2.models import T2Question as T2Q
 
 def logout_user(request):
     logout(request)
@@ -24,9 +26,9 @@ def get_question_model_for_course(course):
         return MBTIMQuestion
     elif 'TATEST' in course.course_name:
         return TAQuestion
-    # else:
-    #     return 0
-
+    elif 'Interpersonal Relationship Questionnaire' in course.course_name:
+        return T2Q
+     
 #for showing signup/login button for student
 def studentclick_view(request):
     if request.user.is_authenticated:
@@ -212,14 +214,187 @@ def calculate_marks_view(request):
             result.category_VI = type_counters[6]
             result.save()
             return HttpResponseRedirect('view-result')
-               
+        elif course.course_name == 'Interpersonal Relationship Questionnaire': 
+            question_model = get_question_model_for_course(course)
+            questions = question_model.objects.all().filter(course=course)
+            student = models.Student.objects.get(user_id=request.user.id)
+            result = Model2.result_t2()
+            total_marks = 0
+            category_counters = {'EI': 0, 'EC': 0, 'EA': 0, 'WI': 0, 'WA': 0, 'WC': 0}
 
-            
-
-           
-
-
-
+            for i, question in enumerate(questions, start=1):
+                selected_ans = request.COOKIES.get(str(i))
+                if i == 1:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EI'] += 1
+                elif i == 2: 
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['WC'] += 1
+                elif i == 3:
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['EI'] += 1
+                elif i == 4:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 5:
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['EI'] += 1
+                elif i == 6:
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['WC'] += 1
+                elif i == 7:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EI'] += 1
+                elif i == 8:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 9:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EI'] += 1
+                elif i == 10:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 11:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EI'] += 1
+                elif i == 12:
+                    if selected_ans in ['Option1']:
+                        category_counters['EA'] += 1
+                elif i == 13:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EI'] += 1
+                elif i == 14:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 15:
+                    if selected_ans in ['Option1']:
+                        category_counters['EI'] += 1
+                elif i == 16:
+                    if selected_ans in ['Option1']:
+                        category_counters['EI'] += 1
+                elif i == 17:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 18:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 19:
+                    if selected_ans in ['Option4', 'Option5', 'Option6']:
+                        category_counters['EA'] += 1
+                elif i == 20:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 21:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 22:
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['WC'] += 1
+                elif i == 23:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 24:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 25:
+                    if selected_ans in ['Option4', 'Option5', 'Option6']:
+                        category_counters['EA'] += 1
+                elif i == 26:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['WC'] += 1
+                elif i == 27:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EA'] += 1
+                elif i == 28:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 29:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WA'] += 1
+                elif i == 30:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EC'] += 1
+                elif i == 31:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 32:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WA'] += 1
+                elif i == 33:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EC'] += 1
+                elif i == 34:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 35:
+                    if selected_ans in ['Option5', 'Option6']:
+                        category_counters['WA'] += 1
+                elif i == 36:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EC'] += 1
+                elif i == 37:
+                    if selected_ans in ['Option1']:
+                        category_counters['WI'] += 1
+                elif i == 38:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WA'] += 1
+                elif i == 39:
+                    if selected_ans in ['Option1']:
+                        category_counters['WI'] += 1
+                elif i == 40:
+                    if selected_ans in ['Option5', 'Option6']:
+                        category_counters['WA'] += 1
+                elif i == 41:
+                    if selected_ans in ['Option1', 'Option2', 'Option3', 'Option4']:
+                        category_counters['EC'] += 1
+                elif i == 42:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 43:
+                    if selected_ans in ['Option1']:
+                        category_counters['WA'] += 1
+                elif i == 44:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EC'] += 1
+                elif i == 45:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 46:
+                    if selected_ans in ['Option5', 'Option6']:
+                        category_counters['WA'] += 1
+                elif i == 47:
+                    if selected_ans in ['Option1', 'Option2', 'Option3']:
+                        category_counters['EC'] += 1
+                elif i == 48:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 49:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WA'] += 1
+                elif i == 50:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EC'] += 1
+                elif i == 51:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['WI'] += 1
+                elif i == 52:
+                    if selected_ans in ['Option5', 'Option6']:
+                        category_counters['WA'] += 1
+                elif i == 53:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EC'] += 1
+                elif i == 54:
+                    if selected_ans in ['Option1', 'Option2']:
+                        category_counters['EC'] += 1
+            total_marks += 1
+            result.student = student
+            result.exam = course
+            result.marks = total_marks
+            # Set category counters
+            for cat, counter in category_counters.items():
+                setattr(result, f'category_{cat}', counter)
+            result.save()
+            return HttpResponseRedirect('view-result')
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
@@ -239,6 +414,9 @@ def check_marks_view(request,pk):
     elif course.course_name == 'TATEST':
         tresults= TModel.Result_ta.objects.all().filter(exam=course).filter(student=student)
         return render(request,'student/check_marks_tatest.html',{'tresults' :tresults})
+    elif course.course_name == 'Interpersonal Relationship Questionnaire':
+        t2results = Model2.result_t2.objects.all().filter(exam=course).filter(student=student)
+        return render(request, 'student/check_marks_test2.html', {'t2results' :t2results})
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
