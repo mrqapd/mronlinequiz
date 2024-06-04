@@ -71,42 +71,32 @@
     </style>
   </head>
 <br><br>
-
 <div class="container">
+  <div class = "text-center">
+    <h3> Welcome {{request.user.first_name}} {{request.user.last_name}}  </h3>
+    <h4> Attempt the following quizes to know your personality </h4>
+  </div>
+  <br> 
   <div class="row">
       {% for course in courses %}
-        <a href = "{% url 'take-exam' course.id %}">
-          <div class="card text-bg-info mb-3" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{ course.course_name }}</h5>
-            <p class="card-text">Click Here to start exam</p>
-          </div>
-        </div>
-        </a>
-        
-        {% comment %} <div class="card bg-c-pink order-card"> 
-          <div class="card-block"> 
-            <h6 class="m-b-20">{{ course.course_name }}</h6>
-        <a class="btn btn-info" href="{% url 'take-exam' course.id %}"> Take Exam </a>
+      <div class="col-md-4 col-sm-6 mb-3">
+          <a href="{% url 'take-exam' course.id %}">
+              <div class="card text-bg-info h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ course.course_name }}</h5>
+                      <p class="card-text">Click Here to start exam</p>
                   </div>
-              </div> {% endcomment %}
+              </div>
+          </a>
+      </div>
       {% endfor %}
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+
 {% endblock content %}
 
 
-
-
-
-<div class="col-md-4"> 
-<a href = "{% url 'take-exam' course.id %}" class="card text-center mb-3" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{ course.course_name }}</h5>
-    <p class="card-text">Click Here to start exam</p>
-  </div>
-</a>
 
