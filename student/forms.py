@@ -10,16 +10,16 @@ class StudentUserForm(forms.ModelForm):
         widgets = {
         'password': forms.PasswordInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your Password'}),
         'username':forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your Username'}),
-        'last_name':forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your First Name' }),
-        'first_name':forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your Last Name'}),
+        'last_name':forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your Last Name' }),
+        'first_name':forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your First Name'}),
         }
 
 class StudentForm(forms.ModelForm):
     class Meta:
         model=models.Student
-        fields=['address','mobile']
+        fields=['mobile']
         widgets = {
-            'address' : forms.TextInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your ID '}),
+
             'mobile' : forms.NumberInput(attrs={'class':'form-control',  'placeholder' : 'Enter Your Phone No.'}),
         }
 
