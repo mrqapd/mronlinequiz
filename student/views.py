@@ -32,7 +32,7 @@ def get_question_model_for_course(course):
 #for showing signup/login button for student
 def studentclick_view(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('afterlogin')
+        return HttpResponseRedirect('student-dashboard')
     return render(request,'student/studentclick.html')
 
 def student_signup_view(request):
