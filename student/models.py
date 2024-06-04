@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class Student(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    address = models.CharField(max_length=40)
     mobile = models.IntegerField(max_length=10)
    
     @property
